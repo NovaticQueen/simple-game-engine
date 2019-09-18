@@ -7,6 +7,10 @@ public class SnakeSegment{
     private char character; //the character representing this snake segment visually
 
     public SnakeSegment(int x, int y, char character){
+
+        this.x = x;
+        this.y = y;
+        this.character = character;
         /*  ------------------------------------------
             1.1
             ------------------------------------------   
@@ -17,26 +21,26 @@ public class SnakeSegment{
 
     public int X {
         get {return x;}
-        set {
+        set { prevX = x;
             /*  ------------------------------------------
                 1.2
                 ------------------------------------------
                 Before overwriting x with the new value,
                 set prevX to the current value of x
             */
-        }
+        
     }
 
     public int Y {
         get {return y;}
-        set {
+        set { prevY = y; }
             /*  ------------------------------------------
                 1.3
                 ------------------------------------------
                 Before overwriting y with the new value,
                 set prevY to the current value of y
             */
-        }
+        
     }
 
     public int PrevX {
