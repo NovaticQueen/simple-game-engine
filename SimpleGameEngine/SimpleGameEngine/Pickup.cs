@@ -8,6 +8,10 @@ public class Pickup{
     private Random r = new Random();
 
     public Pickup(int maxX, int maxY){
+
+        this.maxX = maxX;
+        this.maxY = maxY;
+        SetPosition();
         /*  ------------------------------------------
             3.1
             ------------------------------------------   
@@ -27,6 +31,9 @@ public class Pickup{
     }
 
     public void SetPosition(){
+
+        x = r.Next(0, maxX);
+        y = r.Next(0, maxY);
         /*  ------------------------------------------
             3.2
             ------------------------------------------   
