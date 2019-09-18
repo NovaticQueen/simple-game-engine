@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using static System.Console;
+using static Time;
 
 public class Snake{
     private double x; //the x position of the snake
@@ -18,6 +19,10 @@ public class Snake{
     private List<SnakeSegment> segments = new List<SnakeSegment>();
 
     public Snake(int x, int y, double speed){
+
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
         /*  ------------------------------------------
             2.1
             ------------------------------------------   
@@ -63,6 +68,13 @@ public class Snake{
     }
 
     public void AddSegment(){
+
+        SnakeSegment lastsegment = segments[segments.Count - 1]; //1.
+
+        SnakeSegment newsegment = new SnakeSegment(lastsegment.PrevX, lastsegment.PrevY, 'o'); //2.
+
+        segments.Add(newsegment);
+
         /*  ------------------------------------------
             2.2
             ------------------------------------------   
@@ -89,6 +101,20 @@ public class Snake{
     }
 
     public void UpdateSegments(){
+
+        for (int i = 0; i < segments.Count; i++)
+        {
+            if (i == 0)
+            {
+                segments[0].X = X;
+                segments[0].Y = Y;
+            }
+            else
+            {
+                segments[i].X = segments[i - 1].PrevX;
+                segments[i].Y = segments[i - 1].PrevY;
+            }
+        }
         /*  ------------------------------------------
             2.3
             ------------------------------------------   
@@ -108,6 +134,15 @@ public class Snake{
     }
 
     public bool IsHeadTouchingBody(){
+
+        for (int i = 1; i < segments.Count - 1; i++)
+        {
+            if (segments[0].X == segments[i - 1].X && segments[0].Y == segments[i - 1].Y)
+            {
+                return true;
+            }
+        }
+       
         /*  ------------------------------------------
             2.4
             ------------------------------------------   
@@ -121,6 +156,7 @@ public class Snake{
     }
 
     public void Update(){
+
         if(Input.KeyPressed == InputType.UP){
             yDir = -1;
             xDir = 0;
@@ -129,12 +165,30 @@ public class Snake{
             yDir = 1;
             xDir = 0;
         }
+        else if (Input.KeyPressed == InputType.LEFT)
+        {
+            yDir = 0;
+            xDir = -1;
+        }
+        else if (Input.KeyPressed == InputType.RIGHT)
+        {
+            yDir = 0;
+            xDir = 1;
+        }
+
         /*  ------------------------------------------
             2.5
             ------------------------------------------   
             Complete this decision structure to also update the 
             directions when the LEFT and RIGHT keys are pressed.
         */
+
+        double distanceTravelled = x = xDir * speed * Time.DeltaTime;
+        x = x + distanceTravelled;
+
+
+        distanceTravelled = y = yDir * speed * Time.DeltaTime;
+        y = y + distanceTravelled;
 
         /*  ------------------------------------------
             2.6
